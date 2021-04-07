@@ -1,19 +1,20 @@
-# trivia-hub
+# LAB 14
 
-LAB 14
-Deployment Test
-Authors: Brandon | Davion
-tests report
-front-end
-Setup
-.env requirements
-PORT - Port Number
-Running the app
-npm start
-Endpoint: /status
+## App: Trivia-hub
 
-Tests
-Unit Tests: npm run test
-Lint Tests: npm run lint
-UML
-(Created with diagrams)
+## Authors: Brandon | Davion
+
+### Deployment Test
+- ???
+
+### Setup
+
+- .env requirements
+- PORT/Socket connection
+### Running the app
+    - ???
+
+### Tests
+- ???
+### UML
+<!-- (Created with diagrams) -->
