@@ -1,0 +1,28 @@
+{
+  "name": "trivia-hub",
+  "version": "1.0.0",
+  "description": "## App: Trivia-hub",
+  "main": "hub.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vektur/trivia-hub.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vektur/trivia-hub/issues"
+  },
+  "homepage": "https://github.com/Vektur/trivia-hub#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "minimist": "^1.2.5",
+    "readline": "^1.3.0",
+    "socket.io": "^4.0.1",
+    "socket.io-client": "^4.0.1"
+  }
+}
