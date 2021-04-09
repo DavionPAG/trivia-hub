@@ -45,7 +45,7 @@ hub.on('connection', (socket) => {
     round += 1;
     console.log('The round is: ', round);
     try {
-        const response = await axios.get("process.env.API_URL")
+        const response = await axios.get('process.env.API_URL')
         console.log('response', response.results[0].question)
           //question
           trivia.quesiton = response.results[0].question;
