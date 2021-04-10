@@ -2,12 +2,13 @@
 
 const hub = require("socket.io")(process.env.PORT || 3000);
 const axios = require("axios");
+require('dotenv').config();
 
 let connectedPlayers = [];
 let playersReady = 0;
 let points;
 let round = 0;
-let roundTimer = 15;
+// let roundTimer = 15;
 let interval;
 
 let trivia = {
@@ -23,19 +24,31 @@ let trivia = {
 };
 
 
-
-const startTimer = () => {
-  interval = setInterval(() => {
-    if (roundTimer > 0) {
-      roundTimer--;
-    } else if (roundTimer === 0) {
-      clearInterval(interval);
-    }
-  }, 1000);
-};
+// Not needed at this current stage of functionality
+  // const startTimer = () => {
+  //   interval = setInterval(() => {
+  //     if (roundTimer > 0) {
+  //       roundTimer--;
+  //     } else if (roundTimer === 0) {
+  //       clearInterval(interval);
+  //     }
+  //   }, 1000);
+  // };
 
 hub.on('connection', (socket) => {
   console.log('Welcome');
+
+  let trivia = {
+    // values are dependant on shape of data from API
+    question: " Trivia Question ",
+    answers: {
+      a: "option a",
+      b: "option b",
+      c: "option c",
+      d: "option d",
+      correct: "correct answer",
+    },
+  };
 
   const startGame = () => {
     nextRound();
@@ -45,23 +58,23 @@ hub.on('connection', (socket) => {
     round += 1;
     console.log('The round is: ', round);
     try {
-        const response = await axios.get('process.env.API_URL')
-        console.log('response', response.results[0].question)
+        
+        const response = await axios.get(process.env.API_URL)
+        console.log('response', response.data.results[0].category)
           //question
-          trivia.quesiton = response.results[0].question;
+          trivia.question = response.data.results[0].question;
           //answers
-          trivia.answers.a = response.results[0].incorrect_answers[0];
-          trivia.answers.b = response.results[0].incorrect_answers[2];
-          trivia.answers.c = response.results[0].correct_answer;
-          trivia.answers.d = response.results[0].incorrect_answers[1];
+          trivia.answers.a = response.data.results[0].incorrect_answers[0];
+          trivia.answers.b = response.data.results[0].incorrect_answers[2];
+          trivia.answers.c = response.data.results[0].correct_answer;
+          trivia.answers.d = response.data.results[0].incorrect_answers[1];
           //correct answer
-          trivia.answers.correct = response.results[0].correct_answer;
+          trivia.answers.correct = response.data.results[0].correct_answer;
       } catch (error) {
           console.error("Sorry, the API gave us nothing to work with");
     
-    // emit ...with 'trivia' object as payload
+        }
     socket.emit("trivia", trivia);
-      }
   };
   
   
@@ -84,20 +97,19 @@ hub.on('connection', (socket) => {
   });
   
   socket.on("answer submitted", (payload) => {
-    let reaminingTime = timer;
-    let start = 15;
-    let possible = 100;
-    let points = () => {
-      let neg = (start - reaminingTime) * 5;
-      return (total = possible - neg);
-    };
+    // Calculate points based on time it took. Can add back later. Would need to solve UI/UX issues of a timer continuously emitting to the terminal...thus scrolling past the question/selections.
+      // let reaminingTime = timer;
+      // let start = 15;
+      // let possible = 100;
+      // let points = () => {
+      //   let neg = (start - reaminingTime) * 5;
+      //   return (total = possible - neg);
+      // };
     if (payload.answer === trivia.answers.correct) {
-      connectedPlayers[Object.keys(payload.player)].score += points;
+      // connectedPlayers[Object.keys(payload.player)].score += points;
+      console.log('payload answer: ', payload)
     }
   });
-
-
-  
 })
 
 
